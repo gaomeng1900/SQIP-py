@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no" >
+	<meta name="apple-mobile-web-app-capable" content="yes" >
+	<meta name="apple-mobile-web-app-status-bar-style" content="white">
+	<title>SQIP</title>
+	<script src="/static/js/wid_pos.js"></script>
+	<link rel="icon" type="image/png" href="/static/img/favicon.png">
+	<meta name="description" content="v1.0">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+
+	<!-- Set render engine for 360 browser -->
+	<meta name="renderer" content="webkit">
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache"> 
+	<META HTTP-EQUIV="expires" CONTENT="0">
+
+	<link rel="stylesheet" href="/static/css/amazeui.min.css">
+	<link rel="stylesheet" href="/static/main.css">
+
+	<link rel="stylesheet" href="/static/css/flickity.css" media="screen">
+	<script>var appOrWeb = "{{appOrWeb}}";var whereami = {{whereami}};</script>
+	<script src="/static/js/flickity.pkgd.min.js"></script>
+	<script src="/static/js/main.js"></script>
+	<script>
+	function GetRandomNum(Min,Max)
+	{
+		var Range = Max - Min;
+		var Rand = Math.random();
+		return(Min + Math.round(Rand * Range));
+	}
+	function jumpWithRand (target) {
+		window.location.href=target + "&rand=" + GetRandomNum(0,99999);
+	}
+	</script>
+</head>
+
+
+
+<body id="{{appOrWeb}}" class="{{ bodyClass }}">
+<input id="theme-color" type="hidden" value="#66BB6A">
+
+<div class="hidden" id="loading"><div class="am-icon-spinner am-icon-pulse"></div></div>
+
+	{% if appOrWeb == "app" %}
+	<header class="" id="header">
+		<div class="wrapper" style="height:100%;">
+			<nav class="main_nav">
+				<a onclick="jumpWithRand('/?appOrWeb=app');" href="javascript:;" {% if whereami == 0 %}class="active"{% endif %}><div class="nav_item">主页</div></a>
+				<a onclick="jumpWithRand('/tutor?appOrWeb=app');" href="javascript:;" {% if whereami == 1 %}class="active"{% endif %}><div class="nav_item">导师</div></a>
+				<a onclick="jumpWithRand('/projects?appOrWeb=web');" href="javascript:;" 	{% if whereami == 2 %}class="active"{% endif %}><div class="nav_item">活动</div></a>
+				{%if user.is_anonymous%}
+				<a onclick="jumpWithRand('/login?appOrWeb=app');" href="javascript:;" {% if whereami == 3 %}class="active"{% endif %}><div class="nav_item">管理</div></a>
+				{%else%}
+				<a onclick="jumpWithRand('/panel?appOrWeb=app');" href="javascript:;" {% if whereami == 3 %}class="active"{% endif %}><div class="nav_item">管理</div></a>
+				{%endif%}
+				<div class="clear"></div>
+			</nav>
+			<div class="clear"></div>
+		</div>
+	</header>
+
+	{% elif appOrWeb == "web" %}
+
+	<header class="" id="header">
+		<div class="wrapper" style="z-index:10000;">
+			<div id="logo" class="">
+				<img src="/static/img/logo.png" alt="SQIP" id="logo_img">
+			</div>
+			<nav class="main_nav">
+				<a onclick="jumpWithRand('/?appOrWeb=web');" href="javascript:;" 		{% if whereami == 0 %}class="active"{% endif %}><div class="nav_item">主页</div></a>
+				<a onclick="jumpWithRand('/tutor?appOrWeb=web');" href="javascript:;" 	{% if whereami == 1 %}class="active"{% endif %}><div class="nav_item">导师</div></a>
+				<a onclick="jumpWithRand('/projects?appOrWeb=web');" href="javascript:;" 	{% if whereami == 2 %}class="active"{% endif %}><div class="nav_item">活动</div></a>
+				{%if user.is_anonymous%}
+				<a onclick="jumpWithRand('/login?appOrWeb=web');" href="javascript:;" {% if whereami == 3 %}class="active"{% endif %}><div class="nav_item">管理</div></a>
+				{%else%}
+				<a onclick="jumpWithRand('/panel?appOrWeb=web');" href="javascript:;" {% if whereami == 3 %}class="active"{% endif %}><div class="nav_item">管理</div></a>
+				{%endif%}
+				<div class="clear"></div>
+			</nav>
+			<div id="shadow_helper" class="noshadow"></div>
+			<div class="clear"></div>
+		</div>
+	</header>
+
+	{% endif %}

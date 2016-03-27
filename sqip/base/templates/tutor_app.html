@@ -1,0 +1,68 @@
+{% include "head.html" %}
+
+<script>
+
+</script>
+
+
+<!-- <div class="hidden" id="loading"><div class="am-icon-spinner am-icon-pulse"></div></div> -->
+
+<div id="iframe" class="hidden">
+	<div class="iframe_wrapper">
+		<div id="close_buttom" onclick="closeDetail();"><span class="am-icon-close"></span></div>
+		<div id="detailCheckBox" class="unchosen" onclick=""><span class="am-icon-check-circle-o"></span> 选择导师</div>
+		<iframe src="" frameborder="0" ></iframe>
+	</div>
+</div>
+
+<form action="/" method="post" class="hidden" name="tutor_candidate" id="tutor_candidate">
+	<input type="text" name="firstname" />
+</form>
+
+	<div class="wrapper">
+		<div class="tutor_stock">
+			<img class="sec_title" src="/static/img/tutor.jpg"></img>
+			<div class="card_block" id="tutor_card_block">
+			</div>
+			<ul class="am-pagination" style="margin-left:auto;margin-right:auto;text-align:center" id="page_nav">
+			</ul>
+			<input type="submit" class="am-btn am-btn-success tutor_submit_btn" form="tutor_candidate" value="提交导师候选人" ></input>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+
+<style>
+	.haha{
+		margin-left:auto;
+		margin-right:auto;
+		text-align:center
+	}
+</style>
+
+
+
+<script>
+pageTo(1);refreshState();
+function GetRequest() {
+   var url = location.search; //获取url中"?"符后的字串
+   var theRequest = new Object();
+   if (url.indexOf("?") != -1) {
+      var str = url.substr(1);
+      strs = str.split("&");
+      for(var i = 0; i < strs.length; i ++) {
+         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+      }
+   }
+   return theRequest;
+}
+
+var Request = new Object();
+Request = GetRequest();
+console.info(Request);
+if (Request["tutor_id"]) {
+	showDetail(Request["tutor_id"]);
+};
+</script>
+
+{% include "foot.html" %}

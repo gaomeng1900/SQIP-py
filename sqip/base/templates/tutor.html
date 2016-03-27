@@ -1,0 +1,87 @@
+{% include "head.html" %}
+
+{% if appOrWeb == "web" %}
+<script> 
+window.onscroll = function() { 
+	head = document.getElementById('header');
+	header_place = document.getElementById('header_place');
+	if (window.scrollY >= 200) {
+		head.className = 'head_narrow';
+		header_place.className = '';
+	} else{
+		head.className = '';
+		header_place.className = 'header_place_on';
+	};
+} 
+</script>
+<div id="header_place" class=""></div>
+{% endif %}
+
+<script>
+	candidate = {{tutors_chosen_js | safe }};
+</script>
+
+<div class="hidden" id="loading"><div class="am-icon-spinner am-icon-pulse"></div></div>
+
+<div id="iframe" class="hidden">
+	<div class="iframe_wrapper">
+		<div id="close_buttom" onclick="closeDetail();"><span class="am-icon-close"></span></div>
+		<div id="detailCheckBox" class="unchosen" onclick=""><span class="am-icon-check-circle-o"></span> 选择导师</div>
+		<iframe src="" frameborder="0" ></iframe>
+	</div>
+</div>
+
+
+
+	<div class="wrapper">
+		<div class="tutor_stock">
+			<img class="sec_title" src="/static/img/tutor.jpg"></img>
+			{% if appOrWeb == "web" %}
+			<div class="card_block" id="tutor_card_block" style="margin-left:-50px;width:1029px;overflow_hidden;"></div>
+			{% else %}
+			<div class="card_block" id="tutor_card_block"></div>
+			{% endif %}
+			<ul class="am-pagination" style="margin-left:auto;margin-right:auto;text-align:center" id="page_nav">
+			</ul>
+			{% if not submit_or and not user.is_anonymous %}
+			<form action="/tutor/save" method="post" class="" name="tutor_candidate" id="tutor_candidate">
+				<input id="candidate" type="text" name="tutors_to_save" value="" class="hidden" />
+				<input type="submit" class="am-btn am-btn-success tutor_submit_btn" form="tutor_candidate" value="提交导师候选人" ></input>
+			</form>
+			
+			{% elif user.is_anonymous %}
+			<a href="/login" class="am-btn am-btn-default tutor_submit_btn" value="" >保存导师信息前请先登陆</a>
+			<form action="/tutor/save" method="post" class="hidden" name="tutor_candidate" id="tutor_candidate">
+				<input id="candidate" type="text" name="tutors_to_save" value="" class="hidden" />
+			</form>
+			{% else %}
+			<span  class="am-btn am-btn-default tutor_submit_btn" value="" >已提交申请，不可更改导师</span>
+			{% endif %}
+			<div class="clear"></div>
+		</div>
+	</div>
+
+<script>
+pageTo(1);refreshState();
+function GetRequest() {
+   var url = location.search; //获取url中"?"符后的字串
+   var theRequest = new Object();
+   if (url.indexOf("?") != -1) {
+      var str = url.substr(1);
+      strs = str.split("&");
+      for(var i = 0; i < strs.length; i ++) {
+         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+      }
+   }
+   return theRequest;
+}
+
+var Request = new Object();
+Request = GetRequest();
+console.info(Request);
+if (Request["tutor_id"]) {
+	showDetail(Request["tutor_id"]);
+};
+</script>
+
+{% include "foot.html" %}

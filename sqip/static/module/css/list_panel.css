@@ -1,0 +1,145 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'iconfont';
+  src: url("//at.alicdn.com/t/font_1457762957_2126236.eot");
+  /* IE9*/
+  src: url("//at.alicdn.com/t/font_1457762957_2126236.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1457762957_2126236.woff") format("woff"), url("//at.alicdn.com/t/font_1457762957_2126236.ttf") format("truetype"), url("//at.alicdn.com/t/font_1457762957_2126236.svg#iconfont") format("svg");
+  /* iOS 4.1- */ }
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale; }
+
+.clear {
+  clear: both; }
+
+.list_panel {
+  width: 550px;
+  background-color: white;
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  float: left; }
+  .list_panel .list_panel_header {
+    background-color: #66BB6A;
+    padding-left: 20px;
+    font-family: sans-serif;
+    font-size: 17px;
+    color: white;
+    line-height: 50px; }
+    .list_panel .list_panel_header li {
+      float: left;
+      position: relative;
+      margin: 0 20px 12px -19px;
+      padding-left: 12px; }
+      .list_panel .list_panel_header li:after {
+        border: 10px solid transparent;
+        border-left: 10px solid #fff;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 0;
+        right: -18px;
+        content: ' ';
+        background-color: transparent; }
+  .list_panel ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; }
+    .list_panel ul a {
+      text-decoration: none; }
+      .list_panel ul a:hover {
+        text-decoration: none; }
+      .list_panel ul a li {
+        padding-left: 20px;
+        padding-right: 20px;
+        position: relative;
+        box-sizing: border-box;
+        height: 100px;
+        border-top: dashed 1px rgba(0, 0, 0, 0.3);
+        padding-top: 10px; }
+        .list_panel ul a li .thumbnail {
+          width: 150px;
+          height: 80px;
+          background-size: cover;
+          float: left;
+          -moz-transition: all 0.3s ease;
+          -webkit-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
+          transition: all 0.3s ease; }
+        .list_panel ul a li .text {
+          height: 80px;
+          margin-left: 170px;
+          line-height: 25px;
+          position: static; }
+          .list_panel ul a li .text h3 {
+            margin: 0;
+            line-height: 27px;
+            font-family: sans-serif;
+            font-size: 18px;
+            color: #555;
+            -moz-transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            -o-text-overflow: ellipsis;
+            /*兼容opera*/
+            text-overflow: ellipsis;
+            /*这就是省略号喽*/
+            overflow: hidden;
+            /*设置超过的隐藏*/
+            white-space: nowrap;
+            /*设置不折行*/ }
+          .list_panel ul a li .text p {
+            margin: 0;
+            line-height: 18px;
+            height: 36px;
+            overflow: hidden;
+            font-family: sans-serif;
+            font-size: 11.7px;
+            color: #888; }
+          .list_panel ul a li .text .info {
+            margin: 0;
+            line-height: 18px;
+            font-family: sans-serif;
+            font-size: 13.5px;
+            color: #7fc682;
+            position: absolute;
+            top: 72px; }
+      .list_panel ul a:hover .thumbnail {
+        -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }
+      .list_panel ul a:hover .text h3 {
+        color: #66BB6A; }
+  .list_panel #rolling_tips {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    box-sizing: border-box;
+    height: 50px;
+    line-height: 50px;
+    border-top: dashed 1px #333; }
+    .list_panel #rolling_tips:hover {
+      background-color: #eee;
+      cursor: pointer; }
+
+#app .list_panel ul a {
+  text-decoration: none; }
+  #app .list_panel ul a:hover {
+    text-decoration: none; }
+  #app .list_panel ul a li {
+    padding-left: 10px;
+    padding-right: 10px; }
+    #app .list_panel ul a li .thumbnail {
+      width: 90px; }
+    #app .list_panel ul a li .text {
+      margin-left: 100px; }
+      #app .list_panel ul a li .text h3 {
+        font-family: sans-serif;
+        font-size: 17.1px;
+        color: #555; }

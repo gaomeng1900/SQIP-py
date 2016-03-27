@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+	<title>导师</title>
+	<link rel="stylesheet" href="/static/iframe.css">
+</head>
+<script>
+
+</script>
+<body id="{{appOrWeb}}" class="am-animation-scale-up">
+	<div class="tutor_left">
+		<div class="pic_wrapper">
+		<img src="/static/data/tutors/pics/{{tutor_info["id"]}}.jpg" alt="">
+		</div>
+		<div id="choose_button"></div>
+	</div>
+	<div class="tutor_info">
+		<div class="tutor_info_1">{{ tutor_info["name"] }}</div>
+		<div class="tutor_info_2">{{ tutor_info["school"] }} / {{ tutor_info["post"] }}</div>
+		<div class="tutor_info_3">{{ tutor_info["phone"] }} / {{ tutor_info["email"] }}</div>
+		<div class="tutor_info_4">擅长：{{ tutor_info["skills"] }}</div>
+		<hr>
+		<div class="tutor_info_5">{{ tutor_info["detail"]|safe }}</div>
+	</div>
+	<div class="clear"></div>
+</body>
+</html>

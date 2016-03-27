@@ -1,0 +1,113 @@
+{% include "head.html" %}
+
+
+
+
+{% if appOrWeb == "web" %}
+<div id="header_place" class=""></div>
+{% endif %}
+
+{% set static_url = "/static/module/" %}
+
+<link rel="stylesheet" href="{{static_url}}css/info_panel.css">
+<link rel="stylesheet" href="{{static_url}}css/list_panel.css">	
+<link rel="stylesheet" href="{{static_url}}css/card.css">	
+<style>
+/*	body{
+		max-width: 1000px;
+	}*/
+	.list_panel{
+		width: 61%;
+	}
+	#app .list_panel{
+		width: 100%;
+	}
+	.info_panel{
+		width: 36%;
+		margin-left: 3%;
+	}
+	#app .info_panel{
+		width: 100%;
+		margin-left: 0;
+	}
+
+	#web #body{
+		margin-top: 100px;
+		margin-bottom: 30px;
+	}
+
+	#app #body{
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	#app .sec_title{
+		margin-top: 30px;
+		margin-bottom: 0;
+	}
+	{% if the_pro %}
+	html, body{
+		background-color: #F7F7F7;
+	}
+	{% endif %}
+</style>
+
+<div id="body" class="wrapper">
+
+	{% if the_pro and appOrWeb == "app" %}
+	<infopanel></infopanel>
+	<newslist></newslist>
+	{% elif the_pro %}
+	<newslist></newslist>
+	<infopanel></infopanel>
+	{% else %}
+	<projects></projects>
+	{% endif %}
+	<div class="clear"></div>
+
+	<script src="{{static_url}}js/lib/vue/dist/vue.js"></script>
+	<script src="{{static_url}}js/lib/vue-resource/dist/vue-resource.js"></script>
+	<script src="{{static_url}}js/projects.js"></script>
+	<script src="{{static_url}}js/newslist.js"></script>
+	<script src="{{static_url}}js/infopanel.js"></script>
+	<script src="{{static_url}}js/main.js"></script>
+	<script>
+
+		{% if the_pro %}
+			the_pro = {{the_pro |safe }};
+		{% endif %}
+
+		vvv = new Vue({
+			el:'#body'
+		})
+
+
+		window.onscroll = function() {
+			if (getScrollTop() + getWindowHeight() === getScrollHeight()) {
+				console.log("reach the bottom");
+				return vvv.$broadcast('get-bottom');
+			}
+		};
+
+		{% if appOrWeb == "web" %}
+			head = document.getElementById('header');
+			header_place = document.getElementById('header_place');
+			info_panel = document.getElementsByClassName('info_panel')[0];
+			window.onscroll = function() { 
+				if (window.scrollY >= 50) {
+					head.className = 'head_narrow';
+					header_place.className = '';
+				} else{
+					head.className = '';
+					header_place.className = 'header_place_on';
+				};
+				if (getScrollTop() + getWindowHeight() === getScrollHeight()) {
+					console.log("reach the bottom");
+					return vvv.$broadcast('get-bottom');
+				};
+			} 
+		{% endif %}
+	</script>
+</div>
+
+
+{% include "foot.html" %}

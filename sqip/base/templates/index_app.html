@@ -1,0 +1,78 @@
+{% include "head.html" %}
+
+<div class="banner">
+	<div class="gallery js-flickity"
+	  data-flickity-options='{ "wrapAround": true, "autoPlay": 4000 , "pageDots": false}'>
+		<div class="gallery-cell" id="banner_0"></div>
+		<div class="gallery-cell" id="banner_1"></div>
+		<div class="gallery-cell" id="banner_2"></div>
+	</div>
+</div>
+<style type="text/css">
+#banner_0, #banner_1, #banner_2{
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+#banner_0{background-image:url(./static/img/banner/0.jpg);}
+#banner_1{background-image:url(./static/img/banner/1.jpg);}
+#banner_2{background-image:url(./static/img/banner/2.jpg);}
+</style>
+<!-- </div> -->
+<div class="wrapper">
+	<div class="flow">
+		<img class="sec_title" src="./static/img/flow.jpg"></img>
+		<div class="card_block">
+			<div class="flow_step step_1">
+				<img src="./static/img/flow-c-1.jpg" alt="" class="step_circle">
+				<img src="./static/img/yiban-logo-trans.png" alt="" class="step_main">
+				<div class="step_title">授权登陆</div>
+				<div class="step_comt">使用你本人的易班账号进行授权认证</div>
+			</div>
+			<div class="flow_step step_2">
+				<img src="./static/img/flow-c-2.jpg" alt="" class="step_circle">
+				<img src="./static/img/step_2.png" alt="" class="step_main">
+				<div class="step_title">选择导师</div>
+				<div class="step_comt">你可以从导师库中选择至多3位候选导师来协助你开展项目</div>
+			</div>
+			<div class="flow_step step_3">
+				<img src="./static/img/flow-c-3.jpg" alt="" class="step_circle">
+				<img src="./static/img/step_3.png" alt="" class="step_main">
+				<div class="step_title">提交申请</div>
+				<div class="step_comt">在线填写并提交申请表单，项目办将审核你的项目规划</div>
+			</div>
+			<div class="flow_step step_4">
+				<img src="./static/img/flow-c-4.jpg" alt="" class="step_circle">
+				<img src="./static/img/step_4.png" alt="" class="step_main">
+				<div class="step_title">立项答辩</div>
+				<div class="step_comt">通过初审的项目负责人会收到通知，并进行现场答辩</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="tutor_stock">
+		<a href="/m/tutor"><img class="sec_title" src="./static/img/tutor.jpg"></img></a>
+		<div class="card_block" id="tutor_card_block" >
+		</div>
+	</div>
+</div>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange=function(){
+	if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	{
+	document.getElementById("tutor_card_block").innerHTML=xmlhttp.responseText;
+	tutors = document.getElementById("tutor_card_block").getElementsByTagName("a");
+	tutors[0].parentNode.removeChild(tutors[0]);
+	tutors[1].parentNode.removeChild(tutors[1]);
+	tutors[2].parentNode.removeChild(tutors[2]);
+	
+	console.info("xmlhttp done");
+	};
+};
+xmlhttp.open("GET","/tutor/p/1",true);
+xmlhttp.send();
+
+</script>
+
+{% include "foot.html" %}

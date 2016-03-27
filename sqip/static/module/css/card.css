@@ -1,0 +1,111 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'iconfont';
+  src: url("//at.alicdn.com/t/font_1457762957_2126236.eot");
+  /* IE9*/
+  src: url("//at.alicdn.com/t/font_1457762957_2126236.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1457762957_2126236.woff") format("woff"), url("//at.alicdn.com/t/font_1457762957_2126236.ttf") format("truetype"), url("//at.alicdn.com/t/font_1457762957_2126236.svg#iconfont") format("svg");
+  /* iOS 4.1- */ }
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale; }
+
+.clear {
+  clear: both; }
+
+#projects_wrapper {
+  padding: 20px 1.66667%;
+  margin: -3.33333%; }
+  #projects_wrapper .card {
+    width: 30%;
+    display: block;
+    padding: 0;
+    margin: 1.66667%;
+    text-decoration: none;
+    overflow: hidden;
+    float: left;
+    -moz-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }
+    #projects_wrapper .card .card_img {
+      width: 100%;
+      height: 200px;
+      background-size: cover; }
+    #projects_wrapper .card .card_info {
+      height: 60px;
+      background-color: #66BB6A;
+      padding: 6px 12px 0 12px;
+      margin: 0; }
+      #projects_wrapper .card .card_info .card_info_title {
+        height: 30px;
+        line-height: 30px;
+        padding: 0;
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 21px;
+        color: white;
+        -o-text-overflow: ellipsis;
+        /*兼容opera*/
+        text-overflow: ellipsis;
+        /*这就是省略号喽*/
+        overflow: hidden;
+        /*设置超过的隐藏*/
+        white-space: nowrap;
+        /*设置不折行*/ }
+      #projects_wrapper .card .card_info .card_info_content {
+        height: 24px;
+        line-height: 24px;
+        padding: 0;
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 13.8px;
+        color: white; }
+        #projects_wrapper .card .card_info .card_info_content .time, #projects_wrapper .card .card_info .card_info_content .place {
+          margin-right: 10px; }
+          #projects_wrapper .card .card_info .card_info_content .time i, #projects_wrapper .card .card_info .card_info_content .place i {
+            margin-right: 5px; }
+    #projects_wrapper .card:hover {
+      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      transform: rotate(2deg);
+      -ms-transform: rotate(2deg);
+      /* IE 9 */
+      -webkit-transform: rotate(2deg);
+      /* Safari and Chrome */
+      -o-transform: rotate(2deg);
+      /* Opera */
+      -moz-transform: rotate(2deg);
+      /* Firefox */ }
+  #projects_wrapper #rolling_tips {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 50px;
+    width: 150px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-size: 18px;
+    color: white;
+    background-color: #66BB6A; }
+    #projects_wrapper #rolling_tips:hover {
+      cursor: pointer; }
+
+#app #projects_wrapper {
+  padding: 20px 0;
+  margin: 0; }
+  #app #projects_wrapper .card {
+    width: 100%;
+    margin: 10px 0; }
+  #app #projects_wrapper #rolling_tips {
+    margin-bottom: 0; }

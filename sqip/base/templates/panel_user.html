@@ -1,0 +1,101 @@
+{% include "head.html" %}
+	
+	<div id="header_place" class=""></div>
+
+	<div id="apply_back"></div>
+
+	<div class="wrapper">
+		<div id="user_panel_wrapper">
+			<img src="{{user.head}}" alt="" class="user_head">
+			<div class="user_info">
+				<div class="name">{{user.name}}</div>
+				<div class="school">{{user.school}}</div>
+<!-- 				<div class="yb_id">{{user.yb_id}}</div>
+ -->			</div>
+			<div class="apl_info am-panel am-panel-default gm-panel-default">
+				<div class="am-panel-hd">项目申请信息</div>
+				<div class="am-panel-bd">
+
+					<div class="apl_detail">
+						<div>项目名称：{{application.pro_name}}</div>
+						<hr>
+						{% if application.tutor_id %}
+						<div>指导老师: {{application.tutor_id}}</div>
+						{% else %}
+						<div>导师候选人: {{tutorNames}}</div>
+						{% endif %}
+						<hr>
+						<div>申请材料: 
+							{% if application.submit_or %}
+							<a href="/static/data/application/{{user.yb_id}}/{{user.yb_id}}.zip" class="am-btn am-btn-success am-btn-sm">下载</a>
+							{% else %}
+							<a href="javascript:;" class="am-btn am-btn-default am-btn-sm">未上传申报材料</a>
+							{% endif %}
+						</div>
+						<hr>
+						<div>操作: 
+							<a href="/logout" class="am-btn am-btn-success am-btn-sm">退出登陆</a>&nbsp;&nbsp;
+							<!-- <a href="/apply/cancel" class="am-btn am-btn-danger am-btn-sm">撤销申报</a> -->
+							<!-- <p style="color:#dd4b39; font-size:12px;">*如果您需要修改申报材料，请先撤销申报，撤销后您之前上传的文件会被删除，请提前备份</p> -->
+						</div>
+						<hr>
+					</div>
+
+					<div>申请进度: </div>
+					<div class="apl_prograss">
+					{% if application.review_state == 0 %}
+						<div class="am-progress">
+							<div class="am-progress-bar gm-progress-bar-default"  style="width: 33.3%">提交申请</div>
+							<div class="am-progress-bar gm-progress-bar-default"  style="width: 33.3%">初审</div>
+							<div class="am-progress-bar gm-progress-bar-default"  style="width: 33.3%">答辩</div>
+						</div>
+					{% endif %}
+					{% if application.review_state == 1 %}
+						<div class="am-progress">
+							<div class="am-progress-bar gm-progress-bar-done"  style="width: 33.3%">提交申请</div>
+							<div class="am-progress-bar gm-progress-bar-default"  style="width: 33.3%">初审</div>
+							<div class="am-progress-bar gm-progress-bar-default"  style="width: 33.3%">答辩</div>
+						</div>
+					{% endif %}
+					{% if application.review_state == 2 %}
+						<div class="am-progress">
+							<div class="am-progress-bar gm-progress-bar-done"  style="width: 33.3%">提交申请</div>
+							<div class="am-progress-bar gm-progress-bar-done"  style="width: 33.3%">初审</div>
+							<div class="am-progress-bar gm-progress-bar-default"  style="width: 33.3%">答辩</div>
+						</div>
+					{% endif %}
+					{% if application.review_state == 3 %}
+						<div class="am-progress">
+							<div class="am-progress-bar gm-progress-bar-done"  style="width: 33.3%">提交申请</div>
+							<div class="am-progress-bar gm-progress-bar-done"  style="width: 33.3%">初审</div>
+							<div class="am-progress-bar gm-progress-bar-done"  style="width: 33.3%">答辩</div>
+						</div>
+					{% endif %}
+					{% if application.review_state == 4 %}
+						<div class="am-progress">
+							<div class="am-progress-bar gm-progress-bar-done"  style="width: 100%">很遗憾， 该项目未通过审核</div>
+						</div>
+					{% endif %}
+					</div>
+				</div>
+
+			</div>
+
+
+
+
+			</div>
+
+<!-- 			{{user.name}}
+			{{user.school}}
+			{{user.yb_id}}
+
+			{{application.pro_name}}
+			{{application.tutors_expected}}
+			{{application.tutor_id}}
+			{{application.submit_or}}
+			{{application.review_state}} -->
+		</div>
+	</div>
+
+{% include "foot.html" %}

@@ -1,0 +1,30 @@
+	<footer>
+		<div class="wrapper">
+			<div class="footer_left">
+				<div class="footer_logo"></div>
+				<div class="info">
+					<div class="info0">重庆大学SQIP</div>
+					<div class="info1">学生综合素质能力提升项目</div>
+					<div class="info2">创新 · 实践 · 源自学生</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="footer_right">
+				<!-- <div class="footer_right_nav">主页·导师库·项目申报·登陆与管理</div> -->
+				<!-- <div class="footer_right_provision">重庆大学SQIP项目办 &nbsp;重大D区SZ117 &nbsp;*******</div> -->
+				{% if appOrWeb == "web" %}
+				<div class="footer_right_nav"><a target="__blank" href="/">主页</a> · <a target="__blank" href="/tutor">导师库</a> · <a target="__blank" href="/apply">项目申报</a> · <a target="__blank" href="/login">登陆与管理</a> | <a target="__blank" href="http://cqu.edu.cn">重庆大学</a> · <a target="__blank" href="http://xsc.cqu.edu.cn/">学工部</a></div>
+				{% endif %}
+				<div class="footer_right_provision">Copyright 2015 &copy; 重庆大学SQIP项目办 &nbsp;@GaoMeng</div>
+				<div class="footer_right_links">
+					<a target="__blank" href="mailto:cqusqip@sina.cn" class="link am-icon-btn am-primary am-icon-mail-forward"></a>
+					<a target="__blank" href="http://www.yiban.cn/user/index/index/user_id/5383318" class="link am-icon-btn am-primary "><img src="/static/img/logo-yb.png" alt="" width="22px" height="22px" style="margin-top:-4px;"></a>
+					<a target="__blank" href="http://weibo.com/cqusqip" class="link am-icon-btn am-danger am-icon-weibo"></a>
+					<!-- <a href="" class="link am-icon-btn am-primary am-icon-qq"><img src="" alt=""></a> -->
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</footer>
+</body>

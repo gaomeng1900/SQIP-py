@@ -1,0 +1,41 @@
+
+
+{% if for_index %}
+
+	{% for tutor in tutors.items[0:6] %}
+	<div name="{{tutor["id"]}}" class="unchosen">
+		<a href='javascript:void(0)'
+		 class="tutor" onclick="showDetail('{{tutor["id"]}}')">
+			<div class="tutor_img" style="background-image: url(/static/data/tutors/pics/{{tutor["id"]}}.jpg);"></div>
+			<div class="tutor_info">
+				<div class="tutor_info_name">姓名：{{tutor["name"]}}</div>
+				<div class="tutor_info_school">学院：{{tutor["school"]}}</div>
+				<div class="tutor_info_post">职位：{{tutor["post"]}}</div>
+				<div class="tutor_info_skills">擅长：{{tutor["skills"]}}</div>
+			</div>
+			<div class="clear"></div>
+		</a>
+	</div>
+	{% endfor %}
+
+{% else %}
+
+	{% for tutor in tutors.items %}
+	<div name="{{tutor["id"]}}" class="unchosen">
+		<a href='javascript:void(0)'
+		 class="tutor" onclick="showDetail('{{tutor["id"]}}')">
+			<div class="tutor_img" style="background-image: url(/static/data/tutors/pics/{{tutor["id"]}}.jpg);"></div>
+			<div class="tutor_info">
+				<div class="tutor_info_name">姓名：{{tutor["name"]}}</div>
+				<div class="tutor_info_school">学院：{{tutor["school"]}}</div>
+				<div class="tutor_info_post">职位：{{tutor["post"]}}</div>
+				<div class="tutor_info_skills">擅长：{{tutor["skills"]}}</div>
+			</div>
+			<div class="clear"></div>
+		</a>
+	</div>
+	{% endfor %}
+
+{% endif %}
+
+<div class="clear"></div>

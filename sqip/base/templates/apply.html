@@ -1,0 +1,84 @@
+{% include "head.html" %}
+
+{% if appOrWeb == "web" %}
+
+<script src="/static/js/jquery.min.js"></script>
+
+<script> 
+window.onscroll = function() { 
+	shadow_helper = document.getElementById('shadow_helper');
+	if (window.scrollY >= 60) {
+		shadow_helper.className = '';
+	} else{
+		shadow_helper.className = 'noshadow';
+	};
+}  
+</script>
+
+{% endif %}
+
+	<div id="header_place" class=""></div>
+
+	<div id="apply_back"></div>
+
+	<div class="wrapper">
+		<div id="form_wrapper">
+			<form class="am-form" action="/apply" method="POST" enctype="multipart/form-data">
+				<fieldset>
+					<h1>SQIP 项目申报</h1>
+					<hr>
+					<h3>你已经选择的导师:  {{tutorNames |safe}}</h3>
+					<a onclick="jumpWithRand('/tutor?appOrWeb=app');" href="javascript:;" type="button" class="am-btn am-btn-sm am-btn-secondary">重新选择导师</a>
+					<hr>
+					<div class="am-form-group">
+						<label for="pro_name">项目名称</label>
+						<input type="text" class="" id="pro_name" name="pro_name" placeholder="项目名称" required="required">
+					</div>
+					<hr>
+					<div class="am-form-group" id="file-update">
+						<label for="pro_name">申报文件</label><br>
+						<span>请将填写好的申报文件打包成zip压缩文件上传 (部分手机不能上传文件，建议在电脑上用浏览器登陆进行操作，网址：114.215.98.112)</span><br>
+						<a class="am-btn am-btn-success am-btn-sm" href="javascript:;">
+							<input id="attach" type="file" name="attach" required="required" accept="aplication/zip" onchange="fileChange(this)">
+						</a>
+
+						<script>
+							// theButton = document.getElementById("file-update");
+							// if (navigator.userAgent == "yiban_android") {
+							// 	theButton.innerHTML = ''' <a href="javascript:;" class="bfile" onclick="window.demo.clickOnAlbum();"></a> '''
+							// } else{};
+function fileChange(target) {
+var fileSize = 0;           
+fileSize = target.files[0].size;     
+var size = fileSize / 1024;    
+if(size>30000){  
+alert("附件不能大于30M");
+target.value="";
+return
+}
+var name=target.value;
+var fileName = name.substring(name.lastIndexOf(".")+1).toLowerCase();
+if(fileName !="zip"){
+alert("请选择zip格式文件上传！");
+target.value="";
+return
+}
+} 
+
+						</script>
+						
+					</div>
+					<hr>
+					{% if tutorNames == "未选择" %}
+					<!-- <p><div class="am-btn am-btn-success">请先选择导师</div></p> -->
+					<p><div class="am-btn am-btn-default">提交(截止时间已过)</div></p>
+					{% else %}
+					<p><div class="am-btn am-btn-default">提交(截止时间已过)</div></p>
+					{% endif %}
+					
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+{% include "foot.html" %}
