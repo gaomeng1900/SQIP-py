@@ -67,7 +67,7 @@ def api_users():
 		return jsonify(r)
 
 
-@app.route('/api/v1/user/login', methods=['PUT'])
+@api.route('/api/v1/user/login', methods=['PUT'])
 @union_bug
 @pm_admin
 def admin_login_refresh():
