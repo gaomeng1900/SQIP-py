@@ -8,7 +8,7 @@ SECRET_KEY = "bgyjnb"
 
 ALLOWED_EXTENSIONS = []
 
-SQLALCHEMY_DATABASE_URI = "mysql://root:kojihu@114.215.98.112:3306/sqip?charset=utf8"
+SQLALCHEMY_DATABASE_URI = "mysql://root:kojihu@mysql:3306/sqip?charset=utf8"
 
 MONGO_HOST = "db.sqip"
 
