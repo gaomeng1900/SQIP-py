@@ -60,7 +60,8 @@
       margin-top: 73px;
       list-style-type: none;
       padding-left: 20px;
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      overflow: hidden; }
       .info_panel section ul.info li {
         line-height: 25px;
         font-family: sans-serif;
