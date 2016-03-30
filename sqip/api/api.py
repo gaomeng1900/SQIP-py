@@ -67,13 +67,6 @@ def api_users():
 		return jsonify(r)
 
 
-@api.route('/api/v1/user/login', methods=['PUT'])
-@union_bug
-@pm_admin
-def admin_login_refresh():
-	uid = request.args.get('uid', False)
-	return jsonify({"status":"success", "uid":uid, "token":"xcfgtrfghyujhgfdrtyhbvcxvbh"})
-
 # ===============================================================================================
 
 
