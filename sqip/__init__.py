@@ -45,17 +45,17 @@ def after_request(response):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return '''{"status":"failed", "error_code":"E404", "error_info":"wrong_url", "msg":"url不存在"}'''
+    return '''{"status":"failed", "error_code":"E404", "error_info":"wrong_url", "msg":"url不存在"}''', 404
 
 
 @app.errorhandler(405)
 def page_not_found(error):
-    return '''{"status":"failed", "error_code":"E405", "error_info":"method_not_allowd"}'''
+    return '''{"status":"failed", "error_code":"E405", "error_info":"method_not_allowd"}''', 405
 
 
 @app.errorhandler(403)
 def page_not_found(error):
-    return '''{"status":"failed", "error_code":"E403", "error_info":"forbidden", "msg":"服务器内部权限错误，请通知管理员该错误"}'''
+    return '''{"status":"failed", "error_code":"E403", "error_info":"forbidden", "msg":"服务器内部权限错误，请通知管理员该错误"}''', 403
 
 
 if __name__ == '__main__':
