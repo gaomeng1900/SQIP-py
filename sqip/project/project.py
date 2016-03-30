@@ -7,6 +7,7 @@
 from sqip.config import *
 from sqip.libs import *
 import models
+import scheduler
 
 from flask import Blueprint, g, request, redirect
 
@@ -76,56 +77,8 @@ def show_project(proId):
 		return redirect("/projects")
 
 
-from threading import Timer, Thread
-from time import sleep
-
-class Scheduler(object):
-	def __init__(self, sleep_time, function):
-		self.sleep_time = sleep_time
-		self.function = function
-		self._t = None
-
-	def start(self):
-		if self._t is None:
-			self._t = Timer(self.sleep_time, self._run)
-			self._t.start()
-		else:
-			raise Exception("this timer is already running")
-
-	def _run(self):
-		self.function()
-		self._t = Timer(self.sleep_time, self._run)
-		self._t.start()
-
-	def stop(self):
-		if self._t is not None:
-			self._t.cancel()
-			self._t = None
-
-import requests
-
-def update_news():
-	logging.debug("update_news ing")
-	# get the pros (proId and news_src)
-	pros = models.getPros(1, 50)
-	for pro in pros["pros"]:
-		# updateNews(proId, news_list)
-		params = {"page":1, "size":100, "uid":pro["news_src"]}
-		headers = {'content-type': 'application/json'}
-		r = requests.get('http://www.yiban.cn/blog/blog/getBlogList', params=params, headers=headers)
-		if r:
-			news_list = r.json()["data"]["list"]
-		else:
-			news_list = []
-		try:
-			models.updateNews(pro["id"], news_list)
-		except Exception, e:
-			logging.exception(pro)
-			raise e
-		
-
-scheduler = Scheduler(5, update_news)
-scheduler.start()
+# 启更新news的定时任务
+scheduler.news_updater.start()
 
 
 def before_request():

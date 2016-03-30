@@ -7,8 +7,14 @@
 
 from sqip.config import *
 from sqip.libs import *
+# @TODO
+# 为什么没有后三行就一直提示
+# 'module' object has no attribute 'stu'
 import models
 from models import project
+from models import tutor
+from models import stu
+from models import application
 
 from flask import Blueprint, g, request, redirect
 
@@ -45,7 +51,7 @@ def api_tutors():
 
 
 
-@api.route('/api/v1/users', methods=['GET', 'POST'])
+@api.route('/api/v1/users', methods=['GET'])
 @union_bug
 def api_users():
 	if request.method == 'GET':
@@ -60,6 +66,13 @@ def api_users():
 		r = {"status":"success", "users":users_list, "curr_args":curr_args, "max_page":users.pages}
 		return jsonify(r)
 
+
+@app.route('/api/v1/user/login', methods=['PUT'])
+@union_bug
+@pm_admin
+def admin_login_refresh():
+	uid = request.args.get('uid', False)
+	return jsonify({"status":"success", "uid":uid, "token":"xcfgtrfghyujhgfdrtyhbvcxvbh"})
 
 # ===============================================================================================
 
@@ -136,6 +149,17 @@ def get_news_by_id(proId):
 		return jsonify({"status":"failed", "error_msg":""}), 404
 
 
+@api.route('/api/v1/applications', methods=['GET'])
+@union_bug
+@pm_admin
+def admin_applications():
+	all_apl = models.application.getAllApplications()
+	if all_apl is not False:
+		return jsonify({"status":"success", "applications":all_apl, "max_page":1})
+	else:
+		return jsonify({"status":"failed", "error_msg":"all_apl null"}), 404
+
+
 @api.route('/api/v1/user/login', methods=['POST'])
 @union_bug
 def admin_login():
@@ -153,3 +177,5 @@ def admin_login():
 def admin_login_refresh():
 	uid = request.args.get('uid', False)
 	return jsonify({"status":"success", "uid":uid, "token":"xcfgtrfghyujhgfdrtyhbvcxvbh"})
+
+

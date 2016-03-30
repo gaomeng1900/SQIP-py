@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>SQIP管理面板</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="/dashboard/dist/css/dashboard.css" rel="stylesheet">
+
+		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top gm-nav">
+			<div id="gm-pro-bar">
+				<div id="gm-pro-bar-inner"></div>
+			</div>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">SQIP管理面板</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li id="logout"><a>登出</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+
+		<div class="container-fluid">
+
+			<div class="row" id="dashboard">
+				<div>
+
+					<!-- nav place -->
+
+					<div class="col-sm-3 col-md-2 sidebar">
+						<ul class="nav nav-sidebar">
+							<li v-link="{ path: '/', exact: true }"><a>主页</a></li>
+							<li v-link="{ path: '/projects'}"><a>项目管理</a></li>
+							<li v-link="{ path: '/applications'}"><a>申报管理</a></li>
+							<li v-link="{ path: '/tutors'}"><a>导师管理</a></li>
+							<li v-link="{ path: '/users'}"><a>用户管理</a></li>
+						</ul>
+					</div>
+
+					<!-- dynamic component -->
+
+					<router-view transition="expand"></router-view>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+		<script src="/dashboard/dist/lib/requestsjs/dist/requests.js"></script>
+		<script src="/dashboard/dist/lib/centralperk/dist/centralperk.js"></script>
+		<script src="/dashboard/dist/lib/vue/dist/vue.js"></script>
+		<script src="/dashboard/dist/lib/vuex/dist/vuex.js"></script>
+		<script src="/dashboard/dist/lib/vue-router/dist/vue-router.js"></script>
+
+		<script src="/dashboard/dist/js/helpers.js"></script>
+		<script src="/dashboard/dist/js/vuex/store.js"></script>
+		<script src="/dashboard/dist/js/components/form.js"></script>
+		<script src="/dashboard/dist/js/components/list.js"></script>
+		<script src="/dashboard/dist/js/components/index.js"></script>
+		<script src="/dashboard/dist/js/components/deving.js"></script>
+		<script src="/dashboard/dist/js/dashboard.js"></script>
+
+
+		<script>
+			document.getElementById('logout').onclick = logout // in helpers.js
+		</script>
+	</body>
+</html>
