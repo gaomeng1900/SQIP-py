@@ -8,6 +8,7 @@ from flask import Flask
 from base import base
 from project import project
 from api import api
+from config import *
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
