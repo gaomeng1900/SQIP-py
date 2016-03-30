@@ -46,7 +46,7 @@ def load_user(id):
 	return thisGuy
 
 
-project = Blueprint('project', __name__, template_folder='templates')
+project = Blueprint('project', __name__, template_folder='templates', static_folder='static')
 
 
 @project.route('/projects')

@@ -49,7 +49,7 @@ def load_user(id):
 # this will have to run init_app in the end, cause there is no app here
 
 
-base = Blueprint('base', __name__, template_folder='templates')
+base = Blueprint('base', __name__, template_folder='templates', static_folder='static')
 
 
 def before_request():

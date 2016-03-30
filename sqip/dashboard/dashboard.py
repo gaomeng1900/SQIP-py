@@ -9,7 +9,7 @@ from sqip.config import *
 from sqip.libs import *
 
 
-dashboard = Blueprint('dashboard', __name__, template_folder='templates', static_folder='dist')
+dashboard = Blueprint('dashboard', __name__, template_folder='templates')
 
 
 @base.route('/admin/login' , methods=['GET'])
