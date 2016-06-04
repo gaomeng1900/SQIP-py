@@ -14,11 +14,9 @@ from sqip.libs import *
 # 为什么没有后三行就一直提示
 # 'module' object has no attribute 'stu'
 import models
-from models import project
-from models import tutor
-from models import stu
-from models import application
-from models import meta
+from models import project, meta
+
+from sqip.base.models import tutor, stu, application
 
 from flask import Blueprint, g, request, redirect
 
@@ -50,7 +48,7 @@ def api_tutors():
 	if request.method == 'GET':
 		page = int(request.args.get('page', 1))
 		# sql转json真麻烦 -.-
-		tutors = models.tutor.getTutorsByPage(page)
+		tutors = tutor.getTutorsByPage(page)
 		tutors_list = []
 		for tutor in tutors.items:
 			tutor_dic ={"id"	:tutor.id, 
@@ -75,7 +73,7 @@ def api_users():
 	if request.method == 'GET':
 		page = int(request.args.get('page', 1))
 		# sql转json真麻烦 -.-
-		users = models.stu.getStuByPage(page)
+		users = stu.getStuByPage(page)
 		users_list = []
 		for user in users.items:
 			user_dic = {"id":user.id, 
@@ -116,7 +114,6 @@ def get_pros():
 @pm_admin
 def add_pros():
 	re = project.addPro(request.form)
-	# re = models.project.addPro(request.form, request.files['thumbnail'])
 	if re == 0:
 		return jsonify({"status":"success"})
 	else:
@@ -206,7 +203,7 @@ def add_new_pin(proId):
 @union_bug
 @pm_admin
 def delete_pin(proId, newsId):
-	models.project.unpinNews(proId, newsId)
+	project.unpinNews(proId, newsId)
 	return jsonify({"status":"success"})
 
 
@@ -226,7 +223,7 @@ def projects_update():
 		e -- [description]
 	"""
 	logging.debug("update_news ing")
-	pros = models.project.getPros(1, 99999) # 获取全部项目
+	pros = project.getPros(1, 99999) # 获取全部项目
 
 	from multiprocessing.dummy import Pool as ThreadPool 
 	pool = ThreadPool(20) 
@@ -267,7 +264,7 @@ def news_updater(pro):
 @union_bug
 @pm_admin
 def admin_applications():
-	all_apl = models.application.getAllApplications()
+	all_apl = application.getAllApplications()
 	if all_apl is not False:
 		return jsonify({"status":"success", 
 						"applications":all_apl, 
