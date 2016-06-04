@@ -1,5 +1,8 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+#-*-coding:utf-8-*-
+# 
+# @author Meng G.
+# 2016-03-28 restructed
 
 import sys
 reload(sys)
@@ -38,19 +41,19 @@ mongo = client.sqip
 def Project(arg, _id=False):
 	pro = {}
 	try:
-		pro["id"]= _id if _id else arg.get("id").lower()
-		pro["pro_name"]= arg.get("pro_name")
-		pro["img"]= arg.get("img")
-		pro["type"]= arg.get("type")
-		pro["tutor"]= arg.get("tutor")
-		pro["in_charge"]= arg.get("in_charge")
-		pro["staff"]= arg.get("staff")
-		pro["state"]= arg.get("state")
-		pro["news_src"]= arg.get("news_src")
-		pro["intro"]= arg.get("intro")
-		pro["join_us"]= arg.get("join_us")
-		pro["time"]= arg.get("time")
-		pro["place"]= arg.get("place")
+		pro["id"]        = _id if _id else arg.get("id").lower()
+		pro["pro_name"]  = arg.get("pro_name")
+		pro["img"]       = arg.get("img")
+		pro["type"]      = arg.get("type")
+		pro["tutor"]     = arg.get("tutor")
+		pro["in_charge"] = arg.get("in_charge")
+		pro["staff"]     = arg.get("staff")
+		pro["state"]     = arg.get("state")
+		pro["news_src"]  = arg.get("news_src")
+		pro["intro"]     = arg.get("intro")
+		pro["join_us"]   = arg.get("join_us")
+		pro["time"]      = arg.get("time")
+		pro["place"]     = arg.get("place")
 		return pro
 	except Exception, e:
 		return 0
@@ -103,7 +106,9 @@ def addPro(the_pro):
 		# if tutor.addTutor(the_pro) == 0 :
 		# 	return 0
 		# do some check here
-		mongo.Pro.update({"id":the_pro["id"]}, {"$set":the_pro}, True, True)
+		mongo.Pro.update({"id":the_pro["id"]}, 
+						 {"$set":the_pro}, 
+						 True, True)
 		return 0
 	except Exception, e:
 		return {"status":"failed", "error_msg":str(e)}
@@ -113,7 +118,9 @@ def updPro(the_pro, proId):
 		the_pro = Project(the_pro, proId)
 		if not the_pro:
 			return {"status":"failed", "error_msg":"args_wrong"}
-		mongo.Pro.update({"id":the_pro["id"]}, {"$set":the_pro}, True, True)
+		mongo.Pro.update({"id":the_pro["id"]}, 
+						 {"$set":the_pro}, 
+						 True, True)
 		return 0
 	except Exception, e:
 		return {"status":"failed", "error_msg":str(e)}
@@ -132,7 +139,8 @@ def getPros(page, size):
 		max_page = len(pro_list)/size + 1
 	else:
 		max_page = len(pro_list)/size
-	return {"pros":pro_list[(page-1)*size : page*size], "max_page":max_page}
+	return {"pros":pro_list[(page-1)*size : page*size], 
+			"max_page":max_page}
 	# return test
 
 def delPro(proId):
@@ -151,7 +159,9 @@ def getPro(proId):
 
 def updateNews(proId, news_list):
 	# do some check here
-	mongo.News.update({"id":proId}, {"id":proId, "list":news_list}, True, True)
+	mongo.News.update({"id":proId}, 
+					  {"id":proId, "list":news_list}, 
+					  True, True)
 	return 0
 
 
@@ -163,7 +173,8 @@ def getNews(proId, page, size):
 			max_page = len(full_list)/size + 1
 		else:
 			max_page = len(full_list)/size
-		return {"news_list":full_list[(page-1)*size : page*size], "max_page":max_page}
+		return {"news_list":full_list[(page-1)*size : page*size], 
+				"max_page":max_page}
 	else:
 		return 0
 

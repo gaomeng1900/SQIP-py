@@ -6,8 +6,8 @@
 
 from sqip.config import *
 from sqip.libs import *
-import models
-import scheduler
+from sqip.api import models
+# import scheduler
 
 from flask import Blueprint, g, request, redirect
 
@@ -19,7 +19,9 @@ def guess_autoescape(template_name):
 	ext = template_name.rsplit('.', 1)[1]
 	return ext in ('html', 'htm', 'xml')
 # jinjia2 environment
-env = Environment(autoescape=guess_autoescape, loader=PackageLoader('sqip.base', 'templates'), extensions=['jinja2.ext.autoescape']) 
+env = Environment(autoescape = guess_autoescape, 
+				  loader 	 = PackageLoader('sqip.base', 'templates'), 
+				  extensions = ['jinja2.ext.autoescape']) 
 
 def render(tamp_name, **kw):
 	if kw.get("sep", True):
@@ -34,7 +36,11 @@ def render(tamp_name, **kw):
 		return template.render(kw)
 
 
-from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user, AnonymousUserMixin, fresh_login_required
+from flask.ext.login import LoginManager, login_required, \
+							login_user, logout_user, current_user, \
+							AnonymousUserMixin, fresh_login_required
+
+
 login_manager = LoginManager()
 login_manager.login_view = '.login_page'
 @login_manager.user_loader
@@ -46,7 +52,9 @@ def load_user(id):
 	return thisGuy
 
 
-project = Blueprint('project', __name__, template_folder='templates', static_folder='static')
+project = Blueprint('project', __name__, 
+					template_folder = 'templates', 
+					static_folder   = 'static')
 
 
 @project.route('/projects')
@@ -58,7 +66,9 @@ def show_projects():
 		appOrWeb = "web"
 
 	template = env.get_template('projects.html')
-	return template.render(whereami=2, appOrWeb=appOrWeb, user=g.user)
+	return template.render(whereami = 2, 
+						   appOrWeb = appOrWeb, 
+						   user     = g.user)
 
 
 @project.route('/projects/<proId>')
@@ -69,16 +79,20 @@ def show_project(proId):
 	else:
 		appOrWeb = "web"
 
-	the_pro = models.getPro(proId)
+	the_pro = models.project.getPro(proId)
 	if the_pro:
 		template = env.get_template('projects.html')
-		return template.render(whereami=2, appOrWeb=appOrWeb, user=g.user, the_pro=json.dumps(the_pro))
+		return template.render(whereami = 2, 
+							   appOrWeb = appOrWeb, 
+							   user     = g.user, 
+							   the_pro  = json.dumps(the_pro))
 	else:
 		return redirect("/projects")
 
 
 # 启更新news的定时任务
-scheduler.news_updater.start()
+# droped, handly update instead
+# scheduler.news_updater.start()
 
 
 def before_request():

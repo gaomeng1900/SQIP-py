@@ -32,3 +32,5 @@ APPLICATION_FORDER = "/app/static/data/application/"
 PRO_THUMB_PATH = "/static/data/pro/"
 
 ROOT_PATH = "/app"
+
+API_SERVER = "127.0.0.1"

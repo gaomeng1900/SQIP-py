@@ -20,7 +20,9 @@ def guess_autoescape(template_name):
 	ext = template_name.rsplit('.', 1)[1]
 	return ext in ('html', 'htm', 'xml')
 # jinjia2 environment
-env = Environment(autoescape=guess_autoescape, loader=PackageLoader('sqip.base', 'templates'), extensions=['jinja2.ext.autoescape']) 
+env = Environment(autoescape=guess_autoescape, 
+				  loader=PackageLoader('sqip.base', 'templates'), 
+				  extensions=['jinja2.ext.autoescape']) 
 
 def render(tamp_name, **kw):
 	if kw.get("sep", True):
@@ -36,7 +38,9 @@ def render(tamp_name, **kw):
 
 
 
-from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user, AnonymousUserMixin, fresh_login_required
+from flask.ext.login import LoginManager, login_required, login_user ,\
+							logout_user, current_user, \
+							AnonymousUserMixin, fresh_login_required
 login_manager = LoginManager()
 login_manager.login_view = '.login_page'
 @login_manager.user_loader
@@ -49,7 +53,9 @@ def load_user(id):
 # this will have to run init_app in the end, cause there is no app here
 
 
-base = Blueprint('base', __name__, template_folder='templates', static_folder='static')
+base = Blueprint('base', __name__, 
+				 template_folder='templates', 
+				 static_folder='static')
 
 
 def before_request():
@@ -78,12 +84,15 @@ def index():
 				thisGuy = controller.getStuByYBID(report)
 				login_user(thisGuy)
 				# return ha
-				return redirect('/panel?rand=' + str(random.randint(0, 9999)) )
+				return redirect('/panel?rand='+str(random.randint(0, 999)))
 		# normal
 		else:
 			appOrWeb = request.args.get('appOrWeb', 'web')
 			template = env.get_template('index.html')
-			return template.render(user=g.user, next=request.url, whereami=0, appOrWeb=request.args.get('appOrWeb', 'web'))
+			return template.render(user=g.user, 
+								   next=request.url, 
+								   whereami=0, 
+								   appOrWeb=request.args.get('appOrWeb', 'web'))
 			# if appOrWeb == "web":
 			# 	return render("index", user=g.user, next=request.url, whereami=0, appOrWeb=request.args.get('appOrWeb', 'web'))
 			# else:
@@ -106,7 +115,13 @@ def tutor_page():
 			submit_or = (controller.getApplicationByStuID(g.user.yb_id)).submit_or
 		# just for diff body class!! dont do this again
 		template = env.get_template('tutor.html')
-		return template.render(user=g.user, next=request.url, whereami=1, appOrWeb=request.args.get('appOrWeb', 'web'), bodyClass="tutor_page", tutors_chosen_js=tutors_chosen_js, submit_or=submit_or)
+		return template.render(user=g.user, 
+							   next=request.url, 
+							   whereami=1, 
+							   appOrWeb=request.args.get('appOrWeb', 'web'), 
+							   bodyClass="tutor_page", 
+							   tutors_chosen_js=tutors_chosen_js, 
+							   submit_or=submit_or)
 
 
 @base.route('/tutor/save', methods=['POST', ])
@@ -141,7 +156,14 @@ def tutor_page_api(page):
 def tutor_detail_page(id):
 	if request.method == 'GET':
 		tutor_info = controller.getTutorByID(id);
-		return render("tutor_detail", tutor_info=tutor_info, user=g.user, next=request.url, whereami=1, appOrWeb=request.args.get('appOrWeb', 'web'), bodyClass="tutor_page", sep=False)
+		return render("tutor_detail", 
+					  tutor_info=tutor_info, 
+					  user=g.user, 
+					  next=request.url, 
+					  whereami=1, 
+					  appOrWeb=request.args.get('appOrWeb', 'web'), 
+					  bodyClass="tutor_page", 
+					  sep=False)
 
 
 @base.route('/apply', methods=['GET', 'POST'])
@@ -154,8 +176,12 @@ def apply_page():
 		tutorNames = controller.getTutorNames(g.user.yb_id)
 		template = env.get_template('apply.html')
 		# return what
-		return template.render(user=g.user, next=request.url, whereami=3, appOrWeb=request.args.get('appOrWeb', 'web'), bodyClass="apply_page", tutorNames=tutorNames)
-		# return render("apply", user=g.user, next=request.url, whereami=2, appOrWeb=request.args.get('appOrWeb', 'web'), bodyClass="apply_page", tutorNames=tutorNames)
+		return template.render(user=g.user, 
+							   next=request.url, 
+							   whereami=3, 
+							   appOrWeb=request.args.get('appOrWeb', 'web'), 
+							   bodyClass="apply_page", 
+							   tutorNames=tutorNames)
 	if request.method == "POST":
 		flag = controller.submitApplication(g.user.yb_id, request.form)
 		attach = request.files['attach']
@@ -172,7 +198,9 @@ def cancelApply():
 	if report == 0:
 		return redirect("/")
 	else:
-		return '''<h3>很遗憾您的撤销操作失败，可能是您的项目已经在审核或者服务器正在维护，请联系１８５８０５２１９９４为您人工解决</h3>'''
+		return '''<h3>很遗憾您的撤销操作失败，
+					  可能是您的项目已经在审核或者服务器正在维护，
+					  请联系18580521994为您人工解决</h3>'''
 
 
 @base.route('/login', methods=['GET', 'POST'])
@@ -187,7 +215,14 @@ def apply_user_panel():
 		tutorNames = controller.getTutorNames(g.user.yb_id)
 		application = controller.getApplicationByStuID(g.user.yb_id)
 		template = env.get_template('panel_user.html')
-		return template.render(user=g.user, application=application, next=request.url, whereami=3, appOrWeb=request.args.get('appOrWeb', 'web'), bodyClass="panel_user_page", bodyOnLoad="changeWebOrApp()", tutorNames=tutorNames)
+		return template.render(user=g.user, 
+							   application=application, 
+							   next=request.url, 
+							   whereami=3, 
+							   appOrWeb=request.args.get('appOrWeb', 'web'), 
+							   bodyClass="panel_user_page", 
+							   bodyOnLoad="changeWebOrApp()", 
+							   tutorNames=tutorNames)
 
 @base.route('/logout', methods=['GET', 'POST'])
 def logout():
