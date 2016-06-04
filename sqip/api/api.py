@@ -170,8 +170,8 @@ def get_news_by_id(proId):
 								 	 int(request.args.get('size', 5)))
 	else:
 		the_news= project.getNews(proId, 
-								 	 int(request.args.get('page', 1)),
-								 	 int(request.args.get('size', 5)))
+								  int(request.args.get('page', 1)),
+								  int(request.args.get('size', 5)))
 
 	if the_news:
 		return jsonify({"status":"success", 
@@ -182,13 +182,13 @@ def get_news_by_id(proId):
 						"error_msg":"no news or out of page"}), 404
 	else:
 		return jsonify({"status":"failed", 
-						"error_msg":""}), 404
+						"error_msg":str(the_news)}), 404
 
 
 @api.route("/api/v1/projects/<proId>/news/pins")
 @union_bug
 def get_new_pins(proId):
-	newsPins = project.getNewsPins(proId).newsPins
+	newsPins = project.getNewsPins(proId)["newsPins"]
 	return jsonify({"status":"success", 
 					"id": proId,
 					"newsPins": newsPins})
@@ -254,7 +254,7 @@ def news_updater(pro):
 			news_list += r.json()["data"]["list"]
 			
 	try:
-		models.project.updateNews(pro["id"], news_list)
+		project.updateNews(pro["id"], news_list)
 		logging.exception("done")
 	except Exception, e:
 		logging.exception(pro)

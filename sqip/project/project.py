@@ -89,12 +89,6 @@ def show_project(proId):
 	else:
 		return redirect("/projects")
 
-
-# 启更新news的定时任务
-# droped, handly update instead
-# scheduler.news_updater.start()
-
-
 def before_request():
 	"""每个请求前更新全局变量中的当前用户
 	"""

@@ -5,7 +5,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import logging
+import logging, json
 
 from sqip.config import *
 
@@ -113,7 +113,7 @@ def getPro(proId):
 def updateNews(proId, news_list):
 	# do some check here
 	mongo.News.update({"id":proId}, 
-					  {"$set":{"list":news_list}}, False, True)
+					  {"$set":{"list":news_list}}, True, True)
 	return 0
 
 
@@ -132,20 +132,24 @@ def getNews(proId, page, size):
 
 
 def getPinnedNews(proId, page, size):
-	newsPins = getNewsPins(proId)
+	newsPins = getNewsPins(proId)["newsPins"]
+	logging.exception(json.dumps(newsPins))
 	full_list = mongo.News.find_one({"id":proId})
 	if full_list:
 		full_list = full_list["list"]
 		# delete news not pinned
+		pinned_list = []
 		for news in full_list:
-			if news.id not in newsPins:
-				full_list.remove(news)
+			if news["id"] in newsPins:
+				# logging.exception(json.dumps(news["id"]))
+				pinned_list.append(news)
+				# full_list.remove(news)
 
-		if len(full_list)%size>0:
-			max_page = len(full_list)/size + 1
+		if len(pinned_list)%size>0:
+			max_page = len(pinned_list)/size + 1
 		else:
-			max_page = len(full_list)/size
-		return {"news_list":full_list[(page-1)*size : page*size], 
+			max_page = len(pinned_list)/size
+		return {"news_list":pinned_list[(page-1)*size : page*size], 
 				"max_page":max_page}
 	else:
 		return 0
@@ -155,17 +159,17 @@ def pinNews(proId, newsId):
 	# do some ckeck
 	newsPins = set(getNewsPins(proId)) | set([newsId])
 	mongo.News.update({"id":proId}, 
-					  {"$set":{"newsPins":newsPins}}, False, True)
+					  {"$set":{"newsPins":newsPins}}, True, True)
 	return 0
 
 
 def unpinNews(proId, newsId):
 	newsPins = set(getNewsPins(proId)) - set([newsId])
 	mongo.News.update({"id":proId}, 
-					  {"$set":{"newsPins":newsPins}}, False, True)
+					  {"$set":{"newsPins":newsPins}}, True, True)
 	return 0
 
 
 def getNewsPins(proId):
 	pro = mongo.Pro.find_one({"id":proId})
-	return {"id": proId, "newsPins": pro.newsPins}
+	return {"id": proId, "newsPins": pro.get("newsPins", [])}

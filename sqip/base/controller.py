@@ -7,7 +7,8 @@
 from sqip.config import *
 from sqip.libs import *
 
-from  models import tutor, admin, application, stu
+# from  models import tutor, admin, application, stu
+from sqip.base.models import admin, application, stu, tutor
 
 import socket, json, httplib, sys
 from PIL import Image

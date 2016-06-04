@@ -60,14 +60,14 @@ def setAdminPwd(_admin_pwd):
 					  {"$set":{"admin_pwd": _admin_pwd}}, True, True)
 	return 0
 
-def _init_meta(term, appliable=0, 
-			   admin_uid="admin001", admin_pwd="jjnbv"):
+def _init_meta(term, 
+			   appliable=0, admin_uid="admin001", admin_pwd="jjnbv"):
 	mongo.Meta.update({"id":0}, 
 					  {"$set":{
-					  		"id": 0,
-					   		"term": term,
-					   		"appliable": appliable,
-					   		"admin_uid": admin_uid,
-					   		"admin_pwd": admin_pwd,
+							"id": 0,
+							"term": term,
+							"appliable": appliable,
+							"admin_uid": admin_uid,
+							"admin_pwd": admin_pwd,
 					   }}, True, True)
 	return 0
