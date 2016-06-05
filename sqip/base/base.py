@@ -175,13 +175,15 @@ def apply_page():
 	if request.method == 'GET':
 		tutorNames = controller.getTutorNames(g.user.yb_id)
 		template = env.get_template('apply.html')
+		appliable = controller.checkIfApliable()
 		# return what
 		return template.render(user=g.user, 
 							   next=request.url, 
 							   whereami=3, 
 							   appOrWeb=request.args.get('appOrWeb', 'web'), 
 							   bodyClass="apply_page", 
-							   tutorNames=tutorNames)
+							   tutorNames=tutorNames,
+							   appliable=appliable)
 	if request.method == "POST":
 		flag = controller.submitApplication(g.user.yb_id, request.form)
 		attach = request.files['attach']

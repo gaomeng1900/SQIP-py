@@ -54,7 +54,7 @@ def setAdminUid(_admin_uid):
 def getAdminPwd():
 	meta = mongo.Meta.find_one({"id":0})
 	return meta["admin_pwd"]
-
+ 
 def setAdminPwd(_admin_pwd):
 	mongo.Meta.update({"id":0}, 
 					  {"$set":{"admin_pwd": _admin_pwd}}, True, True)

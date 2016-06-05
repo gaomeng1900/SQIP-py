@@ -50,13 +50,13 @@ def api_tutors():
 		# sql转json真麻烦 -.-
 		tutors = tutor.getTutorsByPage(page)
 		tutors_list = []
-		for tutor in tutors.items:
-			tutor_dic ={"id"	:tutor.id, 
-						"name"  :tutor.name, 
-						"school":tutor.school, 
-						"skills":tutor.skills, 
-						"phone" :tutor.phone, 
-						"email" :tutor.email}
+		for a_tutor in tutors.items:
+			tutor_dic ={"id"	:a_tutor.id, 
+						"name"  :a_tutor.name, 
+						"school":a_tutor.school, 
+						"skills":a_tutor.skills, 
+						"phone" :a_tutor.phone, 
+						"email" :a_tutor.email}
 			tutors_list.append(tutor_dic)
 
 		return jsonify({"status"	:"success", 
@@ -310,7 +310,7 @@ def get_term():
 @union_bug
 @pm_admin
 def meta_change_term():
-	meta.setAppliable( request.form.get('term') );
+	meta.setTerm( request.form.get('term') );
 	return jsonify({"status": "success"})
 
 

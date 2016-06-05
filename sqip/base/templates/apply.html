@@ -69,13 +69,28 @@ return
 						
 					</div>
 					<hr>
-					{% if tutorNames == "未选择" %}
-					<!-- <p><div class="am-btn am-btn-success">请先选择导师</div></p> -->
-					<p><div class="am-btn am-btn-default">提交(截止时间已过)</div></p>
+					{% if appliable %}
+						{% if tutorNames == "未选择" %}
+							<p>
+								<div class="am-btn am-btn-success">
+									请先选择导师
+								</div>
+							</p>
+						{% else %}
+							<p>
+								<button class="am-btn am-btn-success" 
+										type="submit">
+									提交
+								</button>
+							</p>
+						{% endif %}
 					{% else %}
-					<p><div class="am-btn am-btn-default">提交(截止时间已过)</div></p>
+						<p>
+							<div class="am-btn am-btn-default">
+								提交(截止时间已过)
+							</div>
+						</p>
 					{% endif %}
-					
 				</fieldset>
 			</form>
 		</div>

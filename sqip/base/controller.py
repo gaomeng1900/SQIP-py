@@ -7,8 +7,8 @@
 from sqip.config import *
 from sqip.libs import *
 
-# from  models import tutor, admin, application, stu
 from sqip.base.models import admin, application, stu, tutor
+from sqip.api.models import meta
 
 import socket, json, httplib, sys
 from PIL import Image
@@ -158,3 +158,7 @@ def getAllApplications():
 				apl_info_s.append(apl_info)
 	# hahaha = what
 	return apl_info_s
+
+
+def checkIfApliable():
+	return (meta.getAppliable() == "1" or meta.getAppliable() == 1)
