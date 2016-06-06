@@ -157,19 +157,26 @@ def getPinnedNews(proId, page, size):
 
 def pinNews(proId, newsId):
 	# do some ckeck
-	newsPins = set(getNewsPins(proId)) | set([newsId])
+	# logging.exception(set(getNewsPins(proId)["newsPins"]))
+	# logging.exception(set([newsId]))
+	newsPins = set(getNewsPins(proId)["newsPins"]) | set([newsId])
+	# logging.exception(newsPins)
+	# logging.exception(list(newsPins))
 	mongo.News.update({"id":proId}, 
-					  {"$set":{"newsPins":newsPins}}, True, True)
+					  {"$set":{"newsPins":list(newsPins)}}, True, True)
 	return 0
 
 
 def unpinNews(proId, newsId):
-	newsPins = set(getNewsPins(proId)) - set([newsId])
+	newsPins = set(getNewsPins(proId)["newsPins"]) - set([newsId])
 	mongo.News.update({"id":proId}, 
-					  {"$set":{"newsPins":newsPins}}, True, True)
+					  {"$set":{"newsPins":list(newsPins)}}, True, True)
 	return 0
 
 
 def getNewsPins(proId):
-	pro = mongo.Pro.find_one({"id":proId})
-	return {"id": proId, "newsPins": pro.get("newsPins", [])}
+	pro = mongo.News.find_one({"id":proId})
+	if pro:
+		return {"id": proId, "newsPins": pro.get("newsPins", [])}
+	else:
+		return {"id": proId, "newsPins": [], "info": "no such proId"}

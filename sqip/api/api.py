@@ -42,29 +42,75 @@ def pm_admin(func):
 	return wraped
 
 
-@api.route('/api/v1/tutors', methods=['GET', 'POST'])
+@api.route('/api/v1/tutors', methods=['GET'])
 @union_bug
-def api_tutors():
-	if request.method == 'GET':
-		page = int(request.args.get('page', 1))
-		# sql转json真麻烦 -.-
-		tutors = tutor.getTutorsByPage(page)
-		tutors_list = []
-		for a_tutor in tutors.items:
-			tutor_dic ={"id"	:a_tutor.id, 
-						"name"  :a_tutor.name, 
-						"school":a_tutor.school, 
-						"skills":a_tutor.skills, 
-						"phone" :a_tutor.phone, 
-						"email" :a_tutor.email}
-			tutors_list.append(tutor_dic)
+def api_tutors_get():
+	page = int(request.args.get('page', 1))
+	# sql转json真麻烦 -.-
+	tutors = tutor.getTutorsByPage(page)
+	tutors_list = []
+	for a_tutor in tutors.items:
+		tutor_dic ={"id"	:a_tutor.id, 
+					"name"  :a_tutor.name, 
+					"school":a_tutor.school, 
+					"post"  :a_tutor.post, 
+					"skills":a_tutor.skills, 
+					"phone" :a_tutor.phone, 
+					"email" :a_tutor.email,
+					"head"  :a_tutor.head,
+					"detail":a_tutor.detail}
+		tutors_list.append(tutor_dic)
 
-		return jsonify({"status"	:"success", 
-						"tutors"	:tutors_list, 
-						"curr_args"	:{"page_num":tutors.page}, 
-						"max_page"	:tutors.pages})
-	# @TODO POST
+	return jsonify({"status"	:"success", 
+					"tutors"	:tutors_list, 
+					"curr_args"	:{"page_num":tutors.page}, 
+					"max_page"	:tutors.pages})
 
+
+@api.route('/api/v1/tutors', methods=['POST'])
+@union_bug
+@pm_admin
+def api_tutors_post():
+	report = tutor.addTutor(request.form)
+	if report == 0:
+		return jsonify({"status":"success"})
+	else:
+		jsonify(re)
+
+
+@api.route('/api/v1/tutors/<tutorID>', methods=['GET'])
+@union_bug
+def api_tutor_get(tutorID):
+	# sql转json真麻烦 -.-
+	thisTutor = tutor.getTutorByID(tutorID)
+	tutor_dic = {"id"	:thisTutor.id, 
+				"name"  :thisTutor.name, 
+				"school":thisTutor.school, 
+				"post"  :thisTutor.post, 
+				"skills":thisTutor.skills, 
+				"phone" :thisTutor.phone, 
+				"email" :thisTutor.email,
+				"head"  :thisTutor.head,
+				"detail":thisTutor.detail}
+
+	return jsonify({"status":"success", 
+					"tutor"	:tutor_dic})
+
+
+@api.route('/api/v1/tutors/<tutorID>', methods=['PUT'])
+@union_bug
+@pm_admin
+def api_tutor_put(tutorID):
+	tutor.updateTutor(tutorID, request.form)
+	return jsonify({"status":"success"})
+
+
+@api.route('/api/v1/tutors/<tutorID>', methods=['DELETE'])
+@union_bug
+@pm_admin
+def api_tutor_del(tutorID):
+	tutor.deleteTutor(tutorID)
+	return jsonify({"status":"success"})
 
 
 @api.route('/api/v1/users', methods=['GET'])
@@ -184,6 +230,7 @@ def get_news_by_id(proId):
 
 @api.route("/api/v1/projects/<proId>/news/pins")
 @union_bug
+@pm_admin
 def get_new_pins(proId):
 	newsPins = project.getNewsPins(proId)["newsPins"]
 	return jsonify({"status":"success", 
@@ -337,6 +384,4 @@ def init_meta():
 					 request.form.get('admin_uid', None),
 					 request.form.get('admin_pwd', None) );
 	return jsonify({"status": "success"})
-
-
 

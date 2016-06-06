@@ -99,7 +99,11 @@ def getAllApplications():
 				tutors_name_expected = []
 				for tutor_id in tutors_id_expected:
 					if tutor_id != "/":
-						tutor_name = tutor.getTutorByID(tutor_id).name
+						thisGuy = tutor.getTutorByID(tutor_id)
+						if thisGuy != 2:
+							tutor_name = thisGuy.name
+						else:
+							tutor_name = '导师信息已注销'
 						tutors_name_expected.append(tutor_name)
 				apl_info = {"id":apl.id, "pro_name":apl.pro_name , "in_charge_stu_name":in_charge_stu_name , "tutors_name_expected":tutors_name_expected ,"in_charge_id":apl.in_charge_id, }	
 				apl_info_s.append(apl_info)
