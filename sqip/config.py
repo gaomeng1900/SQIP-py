@@ -29,6 +29,8 @@ TUTOR_HEAD_FORDER = "/app/static/data/tutors/pics/"
 
 APPLICATION_FORDER = "/app/static/data/application/"
 
+ARCHIVE_FORDER = "/app/static/data/application/"
+
 PRO_THUMB_PATH = "/static/data/pro/"
 
 ROOT_PATH = "/app"

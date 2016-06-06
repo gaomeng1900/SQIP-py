@@ -25,7 +25,9 @@ api = Blueprint('api', __name__)
 
 import logging
 from functools import wraps
-import requests
+import requests, json, time
+
+import pandas
 
 def pm_admin(func):
 	@wraps(func)
@@ -321,6 +323,61 @@ def admin_applications():
 						"error_msg":"all_apl null"}), 404
 
 
+@api.route('/api/v1/applications/old', methods=['GET'])
+@union_bug
+@pm_admin
+def admin_old_applications():
+	all_apl = application.getAllOldApplications()
+	if all_apl is not False:
+		return jsonify({"status":"success", 
+						"applications":all_apl, 
+						"max_page":1})
+	else:
+		return jsonify({"status":"failed", 
+						"error_msg":"all_apl null"}), 404
+
+
+@api.route("/api/v1/applications/archive", methods=['GET'])
+@union_bug
+@pm_admin
+def archive_applications():
+	application.archive()
+	return jsonify({"status":"success"})
+	# all_apl = application.getAllApplications()
+	# if all_apl is not False:
+	# 	for apl in all_apl:
+	# 		apl["down_load_link"] = "//" + \
+	# 									API_SERVER + \
+	# 									"/static/data/application/" + \
+	# 									str(apl["in_charge_id"]) + \
+	# 									"/" + \
+	# 									str(apl["in_charge_id"]) + \
+	# 									"_term" +\
+	# 									str(meta.getTerm()) + \
+	# 									".zip"
+	# 	result_string = json.dumps(all_apl).decode("unicode-escape")
+	# 	file_name = ARCHIVE_FORDER + \
+	# 				"archive-" + \
+	# 				time.strftime("%Y%m%d-%H%M%S", time.localtime()) + \
+	# 				".xlsx"
+	# 	pandas.read_json(result_string).to_excel(file_name,	merge_cells=False)
+	# 	return jsonify({"status":"success", 
+	# 					"link":file_name[3:]})
+	# else:
+	# 	return jsonify({"status":"failed", 
+	# 					"error_msg":"all_apl null"}), 404
+
+@api.route('/api/v1/applications/<appId>/state', methods=['PUT'])
+@union_bug
+@pm_admin
+def admin_applications_change_state(appId):
+	r = application.changeState(appId, request.form.get('state'))
+	if r == 0:
+		return jsonify({"status":"success"})
+	else:
+		return jsonify({"status":"failed", "error_msg": "no such application"}), 404
+
+
 @api.route('/api/v1/user/login', methods=['POST'])
 @union_bug
 def admin_login():
@@ -385,3 +442,11 @@ def init_meta():
 					 request.form.get('admin_pwd', None) );
 	return jsonify({"status": "success"})
 
+
+@api.route('/api/v1/meta/clear_application', methods=['GET'])
+@union_bug
+@pm_admin
+def clear_appl():
+	# appls = application.getAll()
+	# map(lambda appl: application.cancelApplicationByStuID(appl.in_charge_id), appls)
+	return "{'status': 'success'}"
